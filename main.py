@@ -3,9 +3,7 @@ import streamlit as st
 from bs4 import BeautifulSoup
 
 
-b2b_url = st.text_input("URL to b2bcenter",
-                        value="https://www.b2b-center.ru/market/analiz-rynka-na-vypolnenie-rabot-po-vnedreniiu-i-razvitiiu-sistemy/tender-3677834/?recommended=1&message_info=NjY1NDFkY2M0ZGQyNDMuNTI0Mzc4NzNfOVpIQm5HSmdxTUx4djZqNHNnQklZUVVHTjRlUHRGMW91UktOeHdKWE5vSGZjRU9DTmxVZy85ZHYvbHkyNmhsYVUvekZNbW5XZDY3UzlXeHV5amE3OEE9PQ%3D%3D&utm_medium=email&utm_source=recommended&conversion_id=3&utm_term=1301&utm_campaign=bulletin_market&utm_content=3677834&end=0"
-                        )
+b2b_url = st.text_input("URL to b2bcenter")
 parsed_data = {}
 
 
