@@ -3,7 +3,9 @@ import streamlit as st
 from bs4 import BeautifulSoup
 
 
-b2b_url = st.text_input("URL to b2bcenter", value="https://www.b2b-center.ru/market/razrabotka-onlain-platformy-dlia-klientov-ao-slpk/tender-3652716/?recommended=1&message_info=NjYzMDg1MzI4Yjg5NzkuMTkxMDMxODZfWmN3OEpFWUVZbUFjS0JhdE4zdlVlY1JUUXJtUzMvSStyQkNwNHlNOVduVk5JK3R6MGpaQlJlVjNuNU9JSTc3VTJHOWMyN1BkSERlZmY0WUJMQ1hRZVE9PQ%3D%3D&utm_medium=email&utm_source=recommended&conversion_id=3&utm_term=1301&utm_campaign=bulletin_market&utm_content=3652716&end=0")
+b2b_url = st.text_input("URL to b2bcenter",
+                        value="https://www.b2b-center.ru/market/analiz-rynka-na-vypolnenie-rabot-po-vnedreniiu-i-razvitiiu-sistemy/tender-3677834/?recommended=1&message_info=NjY1NDFkY2M0ZGQyNDMuNTI0Mzc4NzNfOVpIQm5HSmdxTUx4djZqNHNnQklZUVVHTjRlUHRGMW91UktOeHdKWE5vSGZjRU9DTmxVZy85ZHYvbHkyNmhsYVUvekZNbW5XZDY3UzlXeHV5amE3OEE9PQ%3D%3D&utm_medium=email&utm_source=recommended&conversion_id=3&utm_term=1301&utm_campaign=bulletin_market&utm_content=3677834&end=0"
+                        )
 parsed_data = {}
 
 
@@ -28,17 +30,18 @@ def fetch_and_parse(url):
 if st.button("Создать лид"):
     st.write('parsing...')
     soup = fetch_and_parse(b2b_url)
+
     div = soup.find('div', class_='s2')
 
     if div:
         parsed_data['name'] = div.get_text(strip=True)
+        st.write(parsed_data['name'])
     else:
         st.write("Не удалось найти div с классом 's2'")
 
     main_table = soup.find('td', {'id': 'auction_info_td'})
     firstspan = main_table.find('span')
-    secondspan = firstspan.find('span')
-    parsed_data['description'] = secondspan.get_text(strip=True)
+    parsed_data['description'] = firstspan.get_text(strip=True)
 
 
 
@@ -62,7 +65,10 @@ if st.button("Создать лид"):
         "params": {"REGISTER_SONET_EVENT": "Y"}
     }
 
+    st.write(lead_data)
+
     # Выполнение POST-запроса к API Битрикс24
+    # if st.button("Пулл в битрикс"):
     response = requests.post(webhook_url, json=lead_data)
 
     # Проверка ответа
